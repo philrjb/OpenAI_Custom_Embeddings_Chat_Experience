@@ -14,12 +14,14 @@ def init_app():
     st.title('Media ChatBot Debunker')
     st.subheader("Paste the text of the article you want to be debunk")
 
-def query(question):
-    response = st.session_state['chat'].ask_assistant(question)
-    return response
+def query_chatbot(chat, question):
+    assistant_response = chat.ask_assistant(question)
+    return assistant_response['choices'][0]['content']
+
 
 def search_documents(client, prompt):
     return get_redis_results(client, prompt, INDEX_NAME)
+
 
 def get_summary(prompt, search_result):
     summary_prompt = '''Summarise this result in a bulleted list to answer the search query a user has sent.
@@ -56,40 +58,27 @@ Assistant: Searching for answers.
 '''
     if 'generated' not in st.session_state:
         st.session_state['generated'] = []
-
     if 'past' not in st.session_state:
         st.session_state['past'] = []
-
     st.write("IMPORTANT: La présence de la chaîne de caractères 'searching for answers' sous cette forme exacte indique que le Bot est en mode personnalisé.\
                         Vérifier la valeur du paramètre certainty en mode SearchBot pour améliorer votre question")
 
-    prompt = st.text_input(f"What do you want to know: ", key="input")
 
-    if st.button('Submit to Chatbot', key='SubmitToDebunker'):
+    prompt = st.text_input("Les bonnes questions font les bonnes réponses !!!", "", key="inputChatbot")
 
-        # Initialization
+    if st.button('Submit to Chatbot', key='generationSubmitChatBot'):
         if 'chat' not in st.session_state:
             st.session_state['chat'] = RetrievalAssistant()
-            messages = []
-            system_message = Message('system',system_prompt)
-            messages.append(system_message.message())
+            messages = [Message('system', system_prompt).message()]
         else:
             messages = []
-
-        user_message = Message('user',prompt)
-        messages.append(user_message.message())
-
-        response = query(messages)
-
-        # Debugging step to print the whole response
-        st.write(response)
-
+        messages.append(Message('user', prompt).message())
+        response = st.session_state['chat'].ask_assistant(messages)
         st.session_state.past.append(prompt)
         st.session_state.generated.append(response['content'])
 
     if st.session_state['generated']:
-
-        for i in range(len(st.session_state['generated'])-1, -1, -1):
+        for i in range(len(st.session_state['generated']) - 1, -1, -1):
             message(st.session_state["generated"][i], key=str(i))
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
 

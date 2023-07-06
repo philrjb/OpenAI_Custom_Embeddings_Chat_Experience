@@ -1,0 +1,24 @@
+955 
+Subject: Alert - FYI landscapers at CBR (usually in AM)
+Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.13\))
+Content-Type: text/html;
+ charset=us-ascii
+X-Apple-Base-Url: x-msg://3/
+X-Universally-Unique-Identifier: 1EBDAB3D-0710-4C03-8D7D-B02435CF7F71
+X-Apple-Mail-Remote-Attachments: YES
+From: Robert Biden 
+X-Apple-Auto-Saved: 1
+X-Apple-Windows-Friendly: 1
+Date: Wed, 24 Nov 2021 11:27:52 -0800
+X-Apple-Mail-Signature: SKIP_SIGNATURE
+Content-Transfer-Encoding: 7bit
+Message-Id: 
+X-Uniform-Type-Identifier: com.apple.mail-draft
+To: Robert Biden 
+October 14, 2021 : FYI landscapers at CBR (usually in AM)
+ conversation-id
+ 120902
+ date-received
+ 1637782072
+ flags
+ 8623685825

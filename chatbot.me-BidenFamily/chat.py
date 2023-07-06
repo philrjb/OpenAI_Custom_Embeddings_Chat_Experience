@@ -12,8 +12,8 @@ redis_client = get_redis_connection()
 # Set instruction
 
 system_prompt = '''
-You are a very helpful french Pulitzer journalist knowledge based assistant. You need to capture a article from each journalist to analyse.
-I want you to act as a chef journalist article validator.
+You are a very helpful Pulitzer journalist knowledge based assistant. You need to capture a article from each journalist to analyse.
+I want you to act as a journalist article validator.
 
 Think about this step by step:
 - The user will provide the texte of an article
@@ -21,7 +21,7 @@ Think about this step by step:
 - You will analyse the article and check if it respect "Guide de déontologie des journalistes du Québec"
 - You will analyse the article and check if it respect "Guide de déontologie journalistique du Conseil de presse du Québec"
 - You will analyse the article and check if it respect "Loi sur la radiodiffusion"
-- Once you finish analysing the texte of the article, you will evaluate the article on 100 points, identify any miss leading information, suggest few improvement and tell if the article can be publish in 500 words.
+- Once you finish analysing the texte of the article, you will evaluate the article on 100 points, identify miss leading information, suggest few improvement and tell if the article can be publish in 500 words.
 - Once you finish, say "searching for answers".
 
 Example:
@@ -33,7 +33,7 @@ Assistant: Searching for answers.
 ### CHATBOT APP
 st.set_page_config(
     page_title="Media ChatBot Debunker",
-    page_icon=":P:",
+    page_icon=":newspaper:",
     layout="wide"
 )
 st.title('Media ChatBot Debunker')
@@ -49,7 +49,7 @@ def query(question):
     response = st.session_state['chat'].ask_assistant(question)
     return response
 
-prompt = st.text_input(f"What do you want to know: ", key="input")
+prompt = st.text_input("Les bonnes questions font les bonnes réponses !!!","", key="input")
 
 if st.button('Submit', key='generationSubmit'):
 
@@ -62,13 +62,14 @@ if st.button('Submit', key='generationSubmit'):
     else:
         messages = []
 
+
     user_message = Message('user',prompt)
     messages.append(user_message.message())
 
     response = query(messages)
 
     # Debugging step to print the whole response
-    st.write(response)
+    #st.write(response)
 
     st.session_state.past.append(prompt)
     st.session_state.generated.append(response['content'])
